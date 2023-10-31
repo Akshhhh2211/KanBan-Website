@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { MoreHorizontal } from "react-feather";
 import Card from "../Card/Card";
 import Dropdown from "../Dropdown/Dropdown";
-import Editable from "../Editabled/Editable"; // Make sure the import path is correct
 
 import "./Board.css";
 
@@ -52,13 +51,7 @@ function Board(props) {
             updateCard={props.updateCard}
           />
         ))}
-        <Editable
-          text="+ Add Card"
-          placeholder="Enter Card Title"
-          displayClass="board_add-card"
-          editClass="board_add-card_edit"
-          onSubmit={(value) => props.addCard(props.board?.id, value)}
-        />
+
       </div>
     </div>
   );
