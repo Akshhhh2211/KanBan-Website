@@ -5,10 +5,10 @@ import DropdownMenu from "./Components/dropdownmenu/drowndownmenu";
 import "./App.css";
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Define the loading state variable
   const [boards, setBoards] = useState([]);
   const [groupingOption, setGroupingOption] = useState("");
-  const [orderingOption, setOrderingOption] = useState("")
+  const [orderingOption, setOrderingOption] = useState("");
 
   useEffect(() => {
     // Fetch data from the Quicksell API
@@ -16,19 +16,19 @@ function App() {
       .get("https://api.quicksell.co/v1/internal/frontend-assignment")
       .then((response) => {
         const apiData = response.data;
-        setApiData(apiData, apiData);
+        setApiData(apiData); // Fix the usage of setApiData
         setLoading(false);
         console.log("API Data:", apiData);
 
         // Process the API data and group them into boards based on status and priority
-        const groupedBoards = groupDataIntoBoards(apiData, response.data);
+        const groupedBoards = groupDataIntoBoards(apiData);
         setBoards(groupedBoards);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  });
+  }, [groupingOption, orderingOption]);
 
   // Function to group API data into boards based on priority(descending) and title(ascending)
   const orderDataIntoBoards = (apiData) => {
