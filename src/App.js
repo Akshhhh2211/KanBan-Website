@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Board from "./Components/Board/Board";
-import DropdownMenu from "./Components/dropdownmenu/drowndownmenu";
 import "./App.css";
+import { Sliders } from "react-feather";
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [setLoading] = useState(true); // Define the loading state variable
+  const [, setLoading ] = useState(true); // Define the loading state variable
   const [boards, setBoards] = useState([]);
-  const [groupingOption, setGroupingOption] = useState("");
-  const [orderingOption, setOrderingOption] = useState("");
+  const [groupingOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     // Fetch data from the Quicksell API
     axios
       .get("https://api.quicksell.co/v1/internal/frontend-assignment")
       .then((response) => {
         const apiData = response.data;
         setApiData(apiData); // Fix the usage of setApiData
-        setLoading(true);
+        setLoading(false);
         console.log("API Data:", apiData);
 
         // Process the API data and group them into boards based on status and priority
@@ -28,63 +29,9 @@ function App() {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  });
+      // eslint-disable-next-line
+  },[]);
 
-  // Function to group API data into boards based on priority(descending) and title(ascending)
-  const orderDataIntoBoards = (apiData) => {
-    if (!apiData) return [];
-
-    const orderbyPriorityD = orderDatabyDescending(apiData);
-    const orderbyTitle = orderDatabyAscending(apiData);
-
-    let combinedBoards = [];
-    if (orderingOption === "priority") {
-      combinedBoards=orderbyPriorityD;
-    } else if ( orderingOption === "title") {
-      combinedBoards=orderbyTitle;
-    }
-    return combinedBoards;
-  }
-
-  const orderDatabyDescending = (apiData) => {
-    const boardsByPriority = {};
-  
-    // Sort API data by priority in descending order
-    const sortedData = [...apiData.tickets].sort((a, b) => b.priority - a.priority);
-  
-    sortedData.forEach((ticket) => {
-      const priority = ticket.priority;
-      if (!boardsByPriority[priority]) {
-        boardsByPriority[priority] = {
-          title: `Priority ${priority}`,
-          cards: [],
-        };
-      }
-      boardsByPriority[priority].cards.push(ticket);
-    });
-  
-    return Object.values(boardsByPriority);
-  };
- // Define grouping by Title (Ascending)
-const orderDatabyAscending = (apiData) => {
-  const boardsByTitle = {};
-
-  // Sort API data by title in ascending order
-  const sortedData = [...apiData.tickets].sort((a, b) => a.title.localeCompare(b.title));
-
-  sortedData.forEach((ticket) => {
-    const title = ticket.title;
-    if (!boardsByTitle[title]) {
-      boardsByTitle[title] = {
-        title: title,
-        cards: [],
-      };
-    }
-    boardsByTitle[title].cards.push(ticket);
-  });
-
-  return Object.values(boardsByTitle);
-};
   // Function to group API data into boards based on status, user and priority
   const groupDataIntoBoards = (apiData) => {
     if (!apiData) return [];
@@ -156,30 +103,79 @@ const orderDatabyAscending = (apiData) => {
       return Object.values(boardsByPriority);
     };
 
-  // Function to handle grouping change
-  const handleGroupingChange = (groupingValue) => {
-    setGroupingOption(groupingValue);
+     // Define grouping by Title (Ascending)
+    const orderDatabyAscending = (apiData) => {
+     const boardsByTitle = {};
+      const sortedData = [...apiData.tickets].sort((a, b) => a.title.localeCompare(b.title));
+    sortedData.forEach((ticket) => {
+    const title = ticket.title;
+    if (!boardsByTitle[title]) {
+      boardsByTitle[title] = {
+        title: title,
+        cards: [],
+      };
+    }
+    boardsByTitle[title].cards.push(ticket);
+  });
 
-    // Update the boards based on the selected grouping options
-    const groupedBoards = groupDataIntoBoards(apiData);
-    setBoards(groupedBoards);
+  return Object.values(boardsByTitle);
+};
+
+ const orderDatabyDescending = (apiData) => {
+    const boardsByPriority = {};
+    const sortedData = [...apiData.tickets].sort((a, b) => b.priority - a.priority);
+  
+    sortedData.forEach((ticket) => {
+      const priority = ticket.priority;
+      if (!boardsByPriority[priority]) {
+        boardsByPriority[priority] = {
+          title: `Priority ${priority}`,
+          cards: [],
+        };
+      }
+      boardsByPriority[priority].cards.push(ticket);
+    });
+  
+    return Object.values(boardsByPriority);
   };
+    const handleOptionChange = (event) => {
+      const selectedValue = event.target.value;
+      setSelectedOption(selectedValue);
+  
+      // Call the function associated with the selected option
+      if (selectedValue === 'option1-1') {
+        const groupedBoards = groupDataByStatus(apiData);
+        setBoards(groupedBoards);
+      } else if (selectedValue === 'option1-2') {
+        const groupedBoards = groupDataByUser(apiData);
+        setBoards(groupedBoards);
+      } else if (selectedValue === 'option1-3') {
+        const groupedBoards = groupDataByPriority(apiData);
+        setBoards(groupedBoards);
+      } else if (selectedValue === 'option2-1') {
+        const groupedBoards = orderDatabyDescending(apiData);
+        setBoards(groupedBoards);
+      } else if (selectedValue === 'option2-2') {
+        const groupedBoards = orderDatabyAscending(apiData);
+        setBoards(groupedBoards);
+      }
+    };
 
-  // Function to handle ordering change
-  const handleOrderingChange = (orderingValue) => {
-    setOrderingOption(orderingValue);
-
-    // Update the boards based on the selected ordering options
-    const groupedBoards = orderDataIntoBoards(apiData);
-    setBoards(groupedBoards);
-  };
   return (
     <div className="app">
       <div className="app_nav">
-        <DropdownMenu
-          onGroupingChange={handleGroupingChange}
-          onOrderingChange={handleOrderingChange}
-        />
+      <select value={selectedOption} onChange={handleOptionChange} style={{ width: '150px' }}>
+      <option value=""><Sliders size={12} />Display</option>
+      <optgroup label="Grouping">
+        <option value="option1-1">Status</option>
+        <option value="option1-2">User</option>
+        <option value="option1-3">Priority</option>
+      </optgroup>
+      <optgroup label="Ordering">
+        <option value="option2-1">Priority</option>
+        <option value="option2-2">Title</option>
+      </optgroup>
+    </select>
       </div>
       <div className="app_boards_container">
         <div className="app_boards">
