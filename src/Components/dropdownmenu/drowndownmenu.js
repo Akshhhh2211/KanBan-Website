@@ -32,7 +32,7 @@ function DropdownMenu({ onGroupingChange, onOrderingChange }) {
   return (
     <div>
       <select value={displayValue} onChange={handleDisplayChange}>
-        <option value="">Display...</option>
+        <option value="Display">Display...</option>
         <option value="grouping">Grouping</option>
         <option value="ordering">Ordering</option>
       </select>
