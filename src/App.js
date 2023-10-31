@@ -28,7 +28,7 @@ function App() {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, [groupingOption, orderingOption]);
+  }, [groupingOption, orderingOption, setLoading, groupDataIntoBoards"]);
 
   // Function to group API data into boards based on priority(descending) and title(ascending)
   const orderDataIntoBoards = (apiData) => {
