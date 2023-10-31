@@ -17,7 +17,7 @@ function App() {
       .then((response) => {
         const apiData = response.data;
         setApiData(apiData); // Fix the usage of setApiData
-        setLoading(false);
+        setLoading(true);
         console.log("API Data:", apiData);
 
         // Process the API data and group them into boards based on status and priority
