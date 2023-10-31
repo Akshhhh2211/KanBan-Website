@@ -5,7 +5,7 @@ import DropdownMenu from "./Components/dropdownmenu/drowndownmenu";
 import "./App.css";
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [loading, setLoading] = useState(true); // Define the loading state variable
+  const [setLoading] = useState(true); // Define the loading state variable
   const [boards, setBoards] = useState([]);
   const [groupingOption, setGroupingOption] = useState("");
   const [orderingOption, setOrderingOption] = useState("");
