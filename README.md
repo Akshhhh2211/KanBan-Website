@@ -1,4 +1,9 @@
-## Available Scripts
+
+In the Website- [https://kanban-board015.netlify.app/](https://kanban-board015.netlify.app/) 
+You can Customise Your card edit Title, Add Description, Give it a Date and day as a deadline, Add Labels to the the card with different colours, and add tasks within the title)
+All this just by a Click on Card
+
+## Available Scripts in the repo
 
 ### `yarn start` (Do make sure to run 'yarn' before 'yarn start')
 
@@ -20,3 +25,5 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+In the Website- [https://kanban-board015.netlify.app/](https://kanban-board015.netlify.app/) 
+You can Customise Your card edit Title, Add Description, Give it a Date and day as a deadline, Add Labels to the the card with different colours, and add tasks within the title) 
