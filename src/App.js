@@ -21,14 +21,14 @@ function App() {
         console.log("API Data:", apiData);
 
         // Process the API data and group them into boards based on status and priority
-        const groupedBoards = groupDataIntoBoards(response.data);
+        const groupedBoards = groupDataIntoBoards(apiData, response.data);
         setBoards(groupedBoards);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  });
+  }, [groupingOption]);
 
   // Function to group API data into boards based on priority(descending) and title(ascending)
   const orderDataIntoBoards = (apiData) => {
