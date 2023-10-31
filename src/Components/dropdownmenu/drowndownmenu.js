@@ -58,8 +58,8 @@ function DropdownMenu({ onGroupingChange, onOrderingChange }) {
           <label>Ordering: </label>
           <select value={orderingValue} onChange={handleOrderingChange}>
             <option value="">Select...</option>
-            <option value="priority">Priority</option>
-            <option value="title">Title</option>
+            <option value="priority">Title</option>
+            <option value="title">Priority</option>
           </select>
         </div>
       )}
