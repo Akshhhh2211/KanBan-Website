@@ -109,9 +109,11 @@ function CardInfo(props) {
     });
   };
 
+ const { updateCard, boardId } = props;
+
   useEffect(() => {
-    if (props.updateCard) props.updateCard(props.boardId, values.id, values);
-  }, [values]);
+    if (updateCard) updateCard(boardId, values.id, values);
+  }, [values, updateCard, boardId]);
 
   return (
     <Modal onClose={props.onClose}>
