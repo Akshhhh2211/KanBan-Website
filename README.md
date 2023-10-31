@@ -3,6 +3,7 @@ In the Website- [https://kanban-board015.netlify.app/](https://kanban-board015.n
 You can Customise Your card edit Title, Add Description, Give it a Date and day as a deadline, Add Labels to the the card with different colours, and add tasks within the title)
 All this just by a Click on Card 
 You Can also Check for Api Data in Inspect or Developer tools
+With a click User can Filter Around the tasks
 
 ## Available Scripts in the repo
 
