@@ -3,7 +3,6 @@ import {
   CheckSquare,
   Clock,
   User,
-  UserCheck,
   AlertTriangle,
   Circle,
 } from "react-feather";
@@ -11,39 +10,10 @@ import {
 import "./Card.css";
 import CardInfo from "./CardInfo/CardInfo";
 
-// Function to map API priority values to text labels
-const mapPriorityToLabel = (priority) => {
-  switch (priority) {
-    case 4:
-      return "Urgent";
-    case 3:
-      return "High";
-    case 2:
-      return "Medium";
-    case 1:
-      return "Low";
-    default:
-      return "No priority";
-  }
-};
-
-// Function to map API status values to text labels
-const mapStatusToLabel = (status) => {
-  // Assuming you have a list of status labels, adjust this as needed
-  const statusLabels = {
-    backlog: "Backlog",
-    todo: "To Do",
-    inprogress: "In Progress",
-    done: "Done",
-    cancelled: "Cancelled",
-  };
-  return statusLabels[status] || status;
-};
-
 function Card(props) {
   const [showModal, setShowModal] = useState(false);
 
-  const { id, title, date, tasks, labels, priority, status , Name} = props.card;
+  const { id, title, date, tasks, labels, Name} = props.card;
 
   const formatDate = (value) => {
     if (!value) return "";
